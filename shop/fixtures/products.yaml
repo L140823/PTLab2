@@ -1,15 +1,25 @@
 - model: shop.product
   pk: 1
   fields:
-    name: Стол
-    price: 2000
+    name: Щётки стеклоочистителя
+    price: 1500
 - model: shop.product
   pk: 2
   fields:
-    name: Стул
-    price: 1000
+    name: Автомобильное масло
+    price: 2500
 - model: shop.product
   pk: 3
   fields:
-    name: Табурет
+    name: Аккумулятор
+    price: 10000
+- model: shop.product
+  pk: 4
+  fields:
+    name: Тормозная жидкость
     price: 500
+- model: shop.product
+  pk: 5
+  fields:
+    name: Ароматизатор в машину
+    price: 300

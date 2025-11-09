@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Товары</title>
+</head>
+<body>
+    <h1>Товары</h1>
+    <a href="{% url 'cart_view' %}">Корзина</a>
+
+    <table border="1" style="width: 100%;">
+        <tr>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Действие</th>
+        </tr>
+        {% for product in products %}
+        <tr>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            <td>
+                <form method="post" action="{% url 'add_to_cart' product.id %}">
+                    {% csrf_token %}
+                    <button type="submit">+</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>

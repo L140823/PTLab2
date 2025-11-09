@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Корзина</title>
+</head>
+<body>
+    <h1>Корзина</h1>
+    <a href="{% url 'product_list' %}">Назад к товарам</a>
+
+    <br><br>
+    <a href="{% url 'purchase' %}">
+        <button>Купить</button>
+    </a>
+
+    <br><br>
+
+    {% if discount_applied %}
+    <p style="color: green;">
+        <strong>Вам предоставлена скидка 40% на третий товар!</strong>
+    </p>
+    {% endif %}
+
+    {% if items_with_total %}
+    <table border="1" style="width: 100%;">
+        <tr>
+            <th>№</th>
+            <th>Наименование</th>
+            <th>Цена</th>
+            <th>Скидка</th>
+            <th>Итог</th>
+            <th>Действие</th>
+        </tr>
+        {% for item_data in items_with_total %}
+        <tr>
+            <td>{{ item_data.index }}</td>
+            <td>{{ item_data.item.product.name }}</td>
+            <td>{{ item_data.item.product.price }}</td>
+            <td>
+                {% if item_data.has_discount %}
+                -{{ item_data.discount }} (40%)
+                {% else %}
+                -
+                {% endif %}
+            </td>
+            <td>{{ item_data.total }}</td>
+            <td>
+                <form method="post" action="{% url 'remove_from_cart' item_data.item.id %}">
+                    {% csrf_token %}
+                    <button type="submit">Удалить</button>
+                </form>
+            </td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <td colspan="4"><strong>Общая сумма:</strong></td>
+            <td colspan="2"><strong>{{ total }}</strong></td>
+        </tr>
+    </table>
+    {% else %}
+        <p>Корзина пуста</p>
+    {% endif %}
+</body>
+</html>
